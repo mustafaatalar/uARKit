@@ -18,7 +18,7 @@ class uARViewController: UIViewController {
     }
     
     @IBAction func button2Clicked(){
-        scene.addLabelItem(label: "merhaba", position: coordinate(top: 1,  right: 0, front: 1))
+        scene.addLabelItem(label: "merhaba-", position: coordinate(top: 1,  right: 0, front: 1))
     }
     
     override func viewWillAppear(_ animated: Bool) {

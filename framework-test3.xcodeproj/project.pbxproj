@@ -12,7 +12,7 @@
 		B427CBAA1F9D289D005FAB0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B427CBA81F9D289D005FAB0C /* Main.storyboard */; };
 		B427CBAC1F9D289D005FAB0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B427CBAB1F9D289D005FAB0C /* Assets.xcassets */; };
 		B427CBAF1F9D289D005FAB0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B427CBAD1F9D289D005FAB0C /* LaunchScreen.storyboard */; };
-		B427CBD21F9D3E59005FAB0C /* uARScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD01F9D3E59005FAB0C /* uARScene.swift */; };
+		B427CBD21F9D3E59005FAB0C /* uARWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD01F9D3E59005FAB0C /* uARWorld.swift */; };
 		B427CBD31F9D3E59005FAB0C /* uARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD11F9D3E59005FAB0C /* uARViewController.swift */; };
 		B427CBD61F9D3F2C005FAB0C /* uARSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */; };
 		B4B546421FA09D3A0077466E /* uARItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B546411FA09D3A0077466E /* uARItem.swift */; };
@@ -39,7 +39,7 @@
 		B427CBAB1F9D289D005FAB0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B427CBAE1F9D289D005FAB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B427CBB01F9D289D005FAB0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B427CBD01F9D3E59005FAB0C /* uARScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARScene.swift; sourceTree = "<group>"; };
+		B427CBD01F9D3E59005FAB0C /* uARWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARWorld.swift; sourceTree = "<group>"; };
 		B427CBD11F9D3E59005FAB0C /* uARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARViewController.swift; sourceTree = "<group>"; };
 		B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARSKView.swift; sourceTree = "<group>"; };
 		B4B546411FA09D3A0077466E /* uARItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARItem.swift; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		B427CBD41F9D3E6B005FAB0C /* uARKit */ = {
 			isa = PBXGroup;
 			children = (
-				B427CBD01F9D3E59005FAB0C /* uARScene.swift */,
+				B427CBD01F9D3E59005FAB0C /* uARWorld.swift */,
 				B427CBD11F9D3E59005FAB0C /* uARViewController.swift */,
 				B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */,
 				B4B546411FA09D3A0077466E /* uARItem.swift */,
@@ -185,7 +185,7 @@
 				B427CBD31F9D3E59005FAB0C /* uARViewController.swift in Sources */,
 				B427CBA51F9D289D005FAB0C /* AppDelegate.swift in Sources */,
 				B427CBD61F9D3F2C005FAB0C /* uARSKView.swift in Sources */,
-				B427CBD21F9D3E59005FAB0C /* uARScene.swift in Sources */,
+				B427CBD21F9D3E59005FAB0C /* uARWorld.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

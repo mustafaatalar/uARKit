@@ -1,7 +1,7 @@
 import ARKit
 
 var sceneView: ARSKView!
-var scene: uARScene!
+var scene: uARWorld!
 
 class uARViewController: UIViewController {
     
@@ -9,7 +9,9 @@ class uARViewController: UIViewController {
         //scene.setCoordinateMode(mode: uARScene.CoordinateMode.accordingToCompass)
         //scene.addLabelItem(label: "hello", position: coordinate(top: 0,  right: 0, front: 1))
         //scene.addImageItem(imageName: "http://lify.me/wk/emocan/assets/fikriye-emocan.png", position: coordinate(top:0, right:0, front:1))
-        scene.addImageItem(imageName: "fikriye", position: coordinate(top:0, right:0, front:5))
+        //scene.addImageItem(facingMe: false, imageName: "fikriye", position: coordinate(top:0, right:0, front:5))
+        //scene.addImageItem(imageName: "fikriye")
+        scene.addImageItem(imageName: "fikriye", hitPoint: CGPoint(x:0.1, y:0.1))
         //scene.addLabelItem(label: "merhaba", position: coordinate(top: 0,  right: 0, front: 1))
         //scene.addLabelItem(label: "yuppi", position: coordinate(top: 1,  right: -1, front: 1))
         
@@ -18,7 +20,7 @@ class uARViewController: UIViewController {
     }
     
     @IBAction func button2Clicked(){
-        scene.addLabelItem(label: "merhaba-", position: coordinate(top: 1,  right: 0, front: 1))
+        scene.addLabelItem(label: "merhaba", position: coordinate(top: 1,  right: 0, front: 1))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +43,7 @@ class uARViewController: UIViewController {
         
         
         if let view = self.view as? ARSKView {
-            scene = uARScene(size: view.bounds.size)
+            scene = uARWorld(size: view.bounds.size)
             sceneView = view
             sceneView!.delegate = scene
             scene.scaleMode = .resizeFill

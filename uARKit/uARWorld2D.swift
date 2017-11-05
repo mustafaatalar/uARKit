@@ -1,6 +1,6 @@
 import ARKit
 
-extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
+extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
     func session(_ session: ARSession,
                  didFailWithError error: Error) {
         print("AR Session Failed - probably due to lack of camera access")
@@ -19,7 +19,7 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
     
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
         
-        //find if it is coordinate based item and return
+        //find the item and return
         for item in items {
             if item.anchorID == anchor.identifier {
                 item.isShown = true
@@ -27,85 +27,31 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
             }
         }
         
-        //find if it is plane detection or hit based item and return
-        /*
-        for item in items {
-            if item.positionType == .detected_plane && !item.isShown {
-                item.isShown = true;
-                return item.itemObject
-            } else if item.positionType == .hitTest && !item.isShown {
-                item.isShown = true;
-                return item.itemObject
-            }
-        }
-        */
-        // If PlaneAnchor is created by horizantal plane detection
-        // Place content only for anchors found by plane detection.
-        //guard let planeAnchor = anchor as? ARPlaneAnchor else { return SKLabelNode(text: "Error") }
-        
-        //let sqPlane = SKShapeNode(rectOf: CGSize(width: 300, height: 100))
-        //return sqPlane
-        
-        
-        
-        //not to expect to reach here
-        //return SKLabelNode(text: "Error")
+        //return empty node for auto detected planes
         return SKNode()
     }
     
     
-    func session(_ session: ARSession,
-                 didUpdate frame: ARFrame) {
-        /*
-        if !isHitActive {
-            return
-        }
-        print("Hit check")
-        
-        //add anchor if there is a hit based item waiting to be anchored
-        for item in items{
-            if item.positionType == .hitTest && !item.isShown {
-                print("Hit item")
-                
-                let hitResult = session.currentFrame?.hitTest(item.hitPoint, types: [ .estimatedHorizontalPlane ])
-                if let closestResult = hitResult?.first {
-                    let anchor = ARAnchor(transform: (closestResult.worldTransform))
-                    item.anchorID = anchor.identifier
-                    print("Hit detected")
-                    session.add(anchor: anchor)
-                }
-            }
-        }
-        
-        isHitActive=false
-         */
-        
-    }
-    
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors {
             //pass if the anchor was not added by auto detection or hitTest
-            guard let planeAnchor = anchor as? ARPlaneAnchor else { continue }
-            print("auto detected anchor")
-            
-            self.detectedAnchors.append(planeAnchor)
+            guard let _ = anchor as? ARPlaneAnchor else { continue }
+            //print("auto detected anchor")
             
             //when detected a plane, if there is a hit based item waiting to be shown, add its anchor
             for item in items{
                 if item.positionType == .hitTest && !item.isShown {
-                    print("Hit item")
+                    //print("Hit item")
                     
                     let hitResult = session.currentFrame?.hitTest(item.hitPoint, types: [ .estimatedHorizontalPlane ])
                     if let closestResult = hitResult?.first {
                         let anchor = ARAnchor(transform: (closestResult.worldTransform))
                         item.anchorID = anchor.identifier
-                        print("Hit detected")
+                        //print("Hit detected")
                         session.add(anchor: anchor)
                     }
                 }
             }
-            
-            
         }
     }
     
@@ -119,28 +65,12 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
                     self.detectedAnchors.remove(at: index)
                 }
             }
-            
-            
         }
     }
     
-
-
-    
-    
-    
-    /*
-     //to attach a bug image to anchor
-     func view(_ view: ARSKView,
-     nodeFor anchor: ARAnchor) -> SKNode? {
-     let bug = SKSpriteNode(imageNamed: "bug")
-     bug.name = "bug"
-     return bug
-     }
-     */
 }
 
-class uARWorld: SKScene {
+class uARWorld2D: SKScene {
     
     private var sceneView: ARSKView {
         return view as! ARSKView
@@ -169,7 +99,7 @@ class uARWorld: SKScene {
         let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.label, position: position, itemObject: SKLabelNode(text: label), lightingFactor: lightingFactor)
         items.append(i)
         self.itemIdLast=self.itemIdLast+1
-        isTransformSetup = false //
+        isTransformSetup = false
         return itemIdLast-1
     }
     
@@ -186,17 +116,17 @@ class uARWorld: SKScene {
         var s=String(imageName.prefix(7))
         s=s.lowercased()
         if s == "http://" || s == "https:/" {
-
+            self.itemIdLast=self.itemIdLast+1
             DispatchQueue.global().async(execute: {
                 let url = NSURL(string: imageName)
-                let data = NSData(contentsOf: url! as URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let theImage = UIImage(data: data! as Data)
-                let Texture = SKTexture(image: theImage!)                
-                let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast, type: ItemType.image, position: position, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
-                
-                self.items.append(i)
-                self.itemIdLast=self.itemIdLast+1
-                self.isTransformSetup = false //
+                if let data = NSData(contentsOf: url! as URL) { //make sure your image in this url does exist, otherwise unwrap in a if let check
+                    let theImage = UIImage(data: data as Data)
+                    let Texture = SKTexture(image: theImage!)
+                    let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast-1, type: ItemType.image, position: position, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
+
+                    self.items.append(i)
+                    self.isTransformSetup = false //
+                }
             })
 
         } else {
@@ -222,16 +152,15 @@ class uARWorld: SKScene {
         var s=String(imageName.prefix(7))
         s=s.lowercased()
         if s == "http://" || s == "https:/" {
-            
+            self.itemIdLast=self.itemIdLast+1
             DispatchQueue.global().async(execute: {
                 let url = NSURL(string: imageName)
                 let data = NSData(contentsOf: url! as URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
                 let theImage = UIImage(data: data! as Data)
                 let Texture = SKTexture(image: theImage!)
-                let i=uARItem(itemId: self.itemIdLast, type: ItemType.image, planeNumber: planeNumber, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
+                let i=uARItem(itemId: self.itemIdLast-1, type: ItemType.image, planeNumber: planeNumber, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
                 
                 self.items.append(i)
-                self.itemIdLast=self.itemIdLast+1
                 self.isTransformSetup = false //
             })
             
@@ -292,26 +221,45 @@ class uARWorld: SKScene {
         var s=String(videoName.prefix(7))
         s=s.lowercased()
         if s == "http://" || s == "https:/" {
-            
+           self.itemIdLast=self.itemIdLast+1
             DispatchQueue.global().async(execute: {
                
-                let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast, type: ItemType.video, position: position, itemObject: SKVideoNode(url: URL(string: videoName)!), lightingFactor: lightingFactor)
-                let vn:SKVideoNode=i.itemObject as! SKVideoNode
-                vn.play()
-                
-                self.items.append(i)
-                self.itemIdLast=self.itemIdLast+1
-                self.isTransformSetup = false //
+                if let videoNode:SKVideoNode = SKVideoNode(url: URL(string: videoName)!) {
+                    let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast, type: ItemType.video, position: position, itemObject: videoNode, lightingFactor: lightingFactor)
+                    //let vn:SKVideoNode=i.itemObject as! SKVideoNode
+                    videoNode.play()
+                    
+                    self.items.append(i)
+                    self.isTransformSetup = false
+                }
             })
             
         } else {
-            print("video")
-            let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.video, position: position, itemObject: SKVideoNode(fileNamed: videoName), lightingFactor: lightingFactor)
-            let vn:SKVideoNode=i.itemObject as! SKVideoNode
-            vn.play()
-            items.append(i)
-            self.itemIdLast=self.itemIdLast+1
-            isTransformSetup = false //
+            //print("video")
+            
+            let vn: SKVideoNode? = {
+                guard let urlString = Bundle.main.path(forAuxiliaryExecutable: videoName) else {
+                    return nil
+                }
+                
+                let url = URL(fileURLWithPath: urlString)
+                let item = AVPlayerItem(url: url)
+                let player = AVPlayer(playerItem: item)
+                
+                return SKVideoNode(avPlayer: player)
+            }()
+            
+            if vn != nil {
+                let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.video, position: position, itemObject: vn!, lightingFactor: lightingFactor)
+                //let vn:SKVideoNode=i.itemObject as! SKVideoNode
+                vn?.play()
+
+                items.append(i)
+                self.itemIdLast=self.itemIdLast+1
+                isTransformSetup = false
+            } else {
+                //print("no video node")
+            }
         }
         return itemIdLast-1
     }
@@ -319,23 +267,28 @@ class uARWorld: SKScene {
 
 
     
-    /*
+    
     func setCoordinateMode(mode: CoordinateMode){
         self.coordinateMode = mode
-        let configuration=sceneView.session.configuration;
-        //let configuration = ARWorldTrackingConfiguration()
+        //let configuration=worldView.session.configuration;
+        let configuration = ARWorldTrackingConfiguration()
         switch mode {
         case CoordinateMode.relative:
-            configuration?.worldAlignment=ARConfiguration.WorldAlignment.gravity
+            configuration.worldAlignment=ARConfiguration.WorldAlignment.gravity
             break
         case CoordinateMode.compass:
-            configuration?.worldAlignment=ARConfiguration.WorldAlignment.gravityAndHeading
+            configuration.worldAlignment=ARConfiguration.WorldAlignment.gravityAndHeading
             break
         }
-        
-        sceneView.session.run(configuration!, options:[ .resetTracking ])
+        configuration.planeDetection = .horizontal
+        worldView.session.run(configuration, options:[ .resetTracking ])
     }
-    */
+    
+    
+    func resetRelativeCoordinate(){
+        worldView.session.run(worldView.session.configuration!, options: .resetTracking)
+    }
+    
     
     
     
@@ -344,21 +297,6 @@ class uARWorld: SKScene {
     private func setUpTransform() {
         guard let currentFrame = sceneView.session.currentFrame
             else { return }
-        /*
-        let configuration=ARWorldTrackingConfiguration()
-        //let configuration = AROrientationTrackingConfiguration()
-        switch coordinateMode {
-        case CoordinateMode.relative:
-            configuration.worldAlignment=ARConfiguration.WorldAlignment.gravity
-            break
-        case CoordinateMode.compass:
-            configuration.worldAlignment=ARConfiguration.WorldAlignment.gravityAndHeading
-            break
-        }
-         */
-        //sceneView.session.configuration?.worldAlignment=ARConfiguration.WorldAlignment.gravity
-        //sceneView.session.run(sceneView.session.configuration!, options: [.removeExistingAnchors])
-        
         
         for (index, item) in items.enumerated() {
             
@@ -387,15 +325,8 @@ class uARWorld: SKScene {
                 let anchor = ARAnchor(transform: transform)
                 sceneView.session.add(anchor: anchor)
                 items[index].anchorID=anchor.identifier
-            } /* else if item.positionType == .hitTest {
-                isHitActive = true
-            } else if item.positionType == .detected_plane {
-                
-            } */
-            
-
+            }
         }
-        
         isTransformSetup = true
     }
     

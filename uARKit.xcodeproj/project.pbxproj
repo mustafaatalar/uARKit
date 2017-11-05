@@ -12,9 +12,10 @@
 		B427CBAA1F9D289D005FAB0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B427CBA81F9D289D005FAB0C /* Main.storyboard */; };
 		B427CBAC1F9D289D005FAB0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B427CBAB1F9D289D005FAB0C /* Assets.xcassets */; };
 		B427CBAF1F9D289D005FAB0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B427CBAD1F9D289D005FAB0C /* LaunchScreen.storyboard */; };
-		B427CBD21F9D3E59005FAB0C /* uARScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD01F9D3E59005FAB0C /* uARScene.swift */; };
-		B427CBD31F9D3E59005FAB0C /* uARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD11F9D3E59005FAB0C /* uARViewController.swift */; };
-		B427CBD61F9D3F2C005FAB0C /* uARSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */; };
+		B427CBD21F9D3E59005FAB0C /* uARWorld2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD01F9D3E59005FAB0C /* uARWorld2D.swift */; };
+		B427CBD31F9D3E59005FAB0C /* uARView2DController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD11F9D3E59005FAB0C /* uARView2DController.swift */; };
+		B427CBD61F9D3F2C005FAB0C /* uARView2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD51F9D3F2C005FAB0C /* uARView2D.swift */; };
+		B4371D3B1FAF5F7000CBEFB5 /* myvideo2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */; };
 		B4B546421FA09D3A0077466E /* uARItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B546411FA09D3A0077466E /* uARItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,18 +33,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B427CBA11F9D289D005FAB0C /* framework-test3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "framework-test3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B427CBA11F9D289D005FAB0C /* uARKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uARKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B427CBA41F9D289D005FAB0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B427CBA61F9D289D005FAB0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B427CBA91F9D289D005FAB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B427CBAB1F9D289D005FAB0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B427CBAE1F9D289D005FAB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B427CBB01F9D289D005FAB0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B427CBD01F9D3E59005FAB0C /* uARScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARScene.swift; sourceTree = "<group>"; };
-		B427CBD11F9D3E59005FAB0C /* uARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARViewController.swift; sourceTree = "<group>"; };
-		B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARSKView.swift; sourceTree = "<group>"; };
+		B427CBD01F9D3E59005FAB0C /* uARWorld2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARWorld2D.swift; sourceTree = "<group>"; };
+		B427CBD11F9D3E59005FAB0C /* uARView2DController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARView2DController.swift; sourceTree = "<group>"; };
+		B427CBD51F9D3F2C005FAB0C /* uARView2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARView2D.swift; sourceTree = "<group>"; };
+		B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = myvideo2.mp4; sourceTree = "<group>"; };
 		B4B546411FA09D3A0077466E /* uARItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARItem.swift; sourceTree = "<group>"; };
-		B4B546441FA2306F0077466E /* myvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = myvideo.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +61,9 @@
 		B427CB981F9D289D005FAB0C = {
 			isa = PBXGroup;
 			children = (
-				B4B546431FA2305A0077466E /* videos */,
+				B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */,
 				B427CBD41F9D3E6B005FAB0C /* uARKit */,
-				B427CBA31F9D289D005FAB0C /* framework-test3 */,
+				B427CBA31F9D289D005FAB0C /* uARKit-sample */,
 				B427CBA21F9D289D005FAB0C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,12 +71,12 @@
 		B427CBA21F9D289D005FAB0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B427CBA11F9D289D005FAB0C /* framework-test3.app */,
+				B427CBA11F9D289D005FAB0C /* uARKit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B427CBA31F9D289D005FAB0C /* framework-test3 */ = {
+		B427CBA31F9D289D005FAB0C /* uARKit-sample */ = {
 			isa = PBXGroup;
 			children = (
 				B427CBA41F9D289D005FAB0C /* AppDelegate.swift */,
@@ -85,34 +86,26 @@
 				B427CBAD1F9D289D005FAB0C /* LaunchScreen.storyboard */,
 				B427CBB01F9D289D005FAB0C /* Info.plist */,
 			);
-			path = "framework-test3";
+			path = "uARKit-sample";
 			sourceTree = "<group>";
 		};
 		B427CBD41F9D3E6B005FAB0C /* uARKit */ = {
 			isa = PBXGroup;
 			children = (
-				B427CBD01F9D3E59005FAB0C /* uARScene.swift */,
-				B427CBD11F9D3E59005FAB0C /* uARViewController.swift */,
-				B427CBD51F9D3F2C005FAB0C /* uARSKView.swift */,
+				B427CBD01F9D3E59005FAB0C /* uARWorld2D.swift */,
+				B427CBD11F9D3E59005FAB0C /* uARView2DController.swift */,
+				B427CBD51F9D3F2C005FAB0C /* uARView2D.swift */,
 				B4B546411FA09D3A0077466E /* uARItem.swift */,
 			);
 			path = uARKit;
 			sourceTree = "<group>";
 		};
-		B4B546431FA2305A0077466E /* videos */ = {
-			isa = PBXGroup;
-			children = (
-				B4B546441FA2306F0077466E /* myvideo.mp4 */,
-			);
-			path = videos;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B427CBA01F9D289D005FAB0C /* framework-test3 */ = {
+		B427CBA01F9D289D005FAB0C /* uARKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "framework-test3" */;
+			buildConfigurationList = B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "uARKit" */;
 			buildPhases = (
 				B427CB9D1F9D289D005FAB0C /* Sources */,
 				B427CB9E1F9D289D005FAB0C /* Frameworks */,
@@ -123,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = "framework-test3";
+			name = uARKit;
 			productName = "framework-test3";
-			productReference = B427CBA11F9D289D005FAB0C /* framework-test3.app */;
+			productReference = B427CBA11F9D289D005FAB0C /* uARKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -144,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "framework-test3" */;
+			buildConfigurationList = B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "uARKit" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -157,7 +150,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B427CBA01F9D289D005FAB0C /* framework-test3 */,
+				B427CBA01F9D289D005FAB0C /* uARKit */,
 			);
 		};
 /* End PBXProject section */
@@ -169,6 +162,7 @@
 			files = (
 				B427CBAF1F9D289D005FAB0C /* LaunchScreen.storyboard in Resources */,
 				B427CBAC1F9D289D005FAB0C /* Assets.xcassets in Resources */,
+				B4371D3B1FAF5F7000CBEFB5 /* myvideo2.mp4 in Resources */,
 				B427CBAA1F9D289D005FAB0C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,10 +176,10 @@
 			files = (
 				B427CBA71F9D289D005FAB0C /* ViewController.swift in Sources */,
 				B4B546421FA09D3A0077466E /* uARItem.swift in Sources */,
-				B427CBD31F9D3E59005FAB0C /* uARViewController.swift in Sources */,
+				B427CBD31F9D3E59005FAB0C /* uARView2DController.swift in Sources */,
 				B427CBA51F9D289D005FAB0C /* AppDelegate.swift in Sources */,
-				B427CBD61F9D3F2C005FAB0C /* uARSKView.swift in Sources */,
-				B427CBD21F9D3E59005FAB0C /* uARScene.swift in Sources */,
+				B427CBD61F9D3F2C005FAB0C /* uARView2D.swift in Sources */,
+				B427CBD21F9D3E59005FAB0C /* uARWorld2D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "framework-test3" */ = {
+		B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "uARKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B427CBB11F9D289D005FAB0C /* Debug */,
@@ -368,7 +362,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "framework-test3" */ = {
+		B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "uARKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B427CBB41F9D289D005FAB0C /* Debug */,

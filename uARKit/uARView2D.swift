@@ -8,6 +8,6 @@
 
 import ARKit
 
-class uARSKView: ARSKView {
+class uARView2D: ARSKView {
     
 }

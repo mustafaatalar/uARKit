@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:framework-test3.xcodeproj">
+      location = "self:/Users/matalar/Documents/IOS Apps/framework-test3/uARKit.xcodeproj">
    </FileRef>
 </Workspace>

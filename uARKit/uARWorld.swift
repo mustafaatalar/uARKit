@@ -1,17 +1,17 @@
 import ARKit
 
-extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate {
+extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
     func session(_ session: ARSession,
                  didFailWithError error: Error) {
-        print("Session Failed - probably due to lack of camera access")
+        print("AR Session Failed - probably due to lack of camera access")
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
-        print("Session interrupted")
+        print("AR Session interrupted")
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
-        print("Session resumed")
+        print("AR Session resumed")
         sceneView.session.run(session.configuration!,
                               options: [.resetTracking,
                                         .removeExistingAnchors])
@@ -22,11 +22,13 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate {
         //find if it is coordinate based item and return
         for item in items {
             if item.anchorID == anchor.identifier {
+                item.isShown = true
                 return item.itemObject
             }
         }
         
         //find if it is plane detection or hit based item and return
+        /*
         for item in items {
             if item.positionType == .detected_plane && !item.isShown {
                 item.isShown = true;
@@ -36,7 +38,7 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate {
                 return item.itemObject
             }
         }
-        
+        */
         // If PlaneAnchor is created by horizantal plane detection
         // Place content only for anchors found by plane detection.
         //guard let planeAnchor = anchor as? ARPlaneAnchor else { return SKLabelNode(text: "Error") }
@@ -54,24 +56,72 @@ extension uARWorld: ARSKViewDelegate, ARSCNViewDelegate {
     
     func session(_ session: ARSession,
                  didUpdate frame: ARFrame) {
+        /*
         if !isHitActive {
             return
         }
+        print("Hit check")
         
         //add anchor if there is a hit based item waiting to be anchored
-        for item in items {
+        for item in items{
             if item.positionType == .hitTest && !item.isShown {
+                print("Hit item")
                 
                 let hitResult = session.currentFrame?.hitTest(item.hitPoint, types: [ .estimatedHorizontalPlane ])
                 if let closestResult = hitResult?.first {
                     let anchor = ARAnchor(transform: (closestResult.worldTransform))
+                    item.anchorID = anchor.identifier
+                    print("Hit detected")
                     session.add(anchor: anchor)
                 }
             }
         }
         
         isHitActive=false
+         */
         
+    }
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        for anchor in anchors {
+            //pass if the anchor was not added by auto detection or hitTest
+            guard let planeAnchor = anchor as? ARPlaneAnchor else { continue }
+            print("auto detected anchor")
+            
+            self.detectedAnchors.append(planeAnchor)
+            
+            //when detected a plane, if there is a hit based item waiting to be shown, add its anchor
+            for item in items{
+                if item.positionType == .hitTest && !item.isShown {
+                    print("Hit item")
+                    
+                    let hitResult = session.currentFrame?.hitTest(item.hitPoint, types: [ .estimatedHorizontalPlane ])
+                    if let closestResult = hitResult?.first {
+                        let anchor = ARAnchor(transform: (closestResult.worldTransform))
+                        item.anchorID = anchor.identifier
+                        print("Hit detected")
+                        session.add(anchor: anchor)
+                    }
+                }
+            }
+            
+            
+        }
+    }
+    
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+        for anchor in anchors {
+            //pass if the anchor was not added by auto detection or hitTest
+            guard let planeAnchor = anchor as? ARPlaneAnchor else { continue }
+            
+            for (index, anc) in self.detectedAnchors.enumerated() {
+                if anc.identifier == planeAnchor.identifier {
+                    self.detectedAnchors.remove(at: index)
+                }
+            }
+            
+            
+        }
     }
     
 
@@ -96,7 +146,7 @@ class uARWorld: SKScene {
         return view as! ARSKView
     }
     
-    private var isWorldSetUp = false
+    private var isTransformSetup = false
     
     public enum CoordinateMode {
         case relative //sets the coordinate system of augmented objects according to camera facing, front means X meter in front of camera
@@ -113,11 +163,13 @@ class uARWorld: SKScene {
     
     var isHitActive: Bool = false;
     
+    var detectedAnchors = [ARAnchor]()
+    
     private func addLabelItem(facingMe: Bool, label: String, position: coordinate, lightingFactor: Float) -> Int {
         let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.label, position: position, itemObject: SKLabelNode(text: label), lightingFactor: lightingFactor)
         items.append(i)
         self.itemIdLast=self.itemIdLast+1
-        isWorldSetUp = false //
+        isTransformSetup = false //
         return itemIdLast-1
     }
     
@@ -144,14 +196,14 @@ class uARWorld: SKScene {
                 
                 self.items.append(i)
                 self.itemIdLast=self.itemIdLast+1
-                self.isWorldSetUp = false //
+                self.isTransformSetup = false //
             })
 
         } else {
             let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.image, position: position, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
             items.append(i)
             self.itemIdLast=self.itemIdLast+1
-            isWorldSetUp = false //
+            isTransformSetup = false //
         }
         return itemIdLast-1
     }
@@ -180,14 +232,14 @@ class uARWorld: SKScene {
                 
                 self.items.append(i)
                 self.itemIdLast=self.itemIdLast+1
-                self.isWorldSetUp = false //
+                self.isTransformSetup = false //
             })
             
         } else {
             let i=uARItem(itemId: itemIdLast, type: ItemType.image, planeNumber: planeNumber, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
             items.append(i)
             self.itemIdLast=self.itemIdLast+1
-            isWorldSetUp = false //
+            isTransformSetup = false //
         }
         return itemIdLast-1
     }
@@ -211,14 +263,14 @@ class uARWorld: SKScene {
                 
                 self.items.append(i)
                 self.itemIdLast=self.itemIdLast+1
-                self.isWorldSetUp = false //
+                self.isTransformSetup = false //
             })
             
         } else {
             let i=uARItem(itemId: itemIdLast, type: ItemType.image, hitPoint: hitPoint, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
             items.append(i)
             self.itemIdLast=self.itemIdLast+1
-            isWorldSetUp = false //
+            isTransformSetup = false //
         }
         return itemIdLast-1
     }
@@ -249,7 +301,7 @@ class uARWorld: SKScene {
                 
                 self.items.append(i)
                 self.itemIdLast=self.itemIdLast+1
-                self.isWorldSetUp = false //
+                self.isTransformSetup = false //
             })
             
         } else {
@@ -259,7 +311,7 @@ class uARWorld: SKScene {
             vn.play()
             items.append(i)
             self.itemIdLast=self.itemIdLast+1
-            isWorldSetUp = false //
+            isTransformSetup = false //
         }
         return itemIdLast-1
     }
@@ -289,7 +341,7 @@ class uARWorld: SKScene {
     
     
     
-    private func setUpWorld() {
+    private func setUpTransform() {
         guard let currentFrame = sceneView.session.currentFrame
             else { return }
         /*
@@ -305,10 +357,15 @@ class uARWorld: SKScene {
         }
          */
         //sceneView.session.configuration?.worldAlignment=ARConfiguration.WorldAlignment.gravity
-        sceneView.session.run(sceneView.session.configuration!, options: [.removeExistingAnchors])
+        //sceneView.session.run(sceneView.session.configuration!, options: [.removeExistingAnchors])
         
         
         for (index, item) in items.enumerated() {
+            
+            if item.isShown {
+                continue
+            }
+            
             var transform: simd_float4x4 = matrix_identity_float4x4
             var translation = matrix_identity_float4x4
             
@@ -330,24 +387,24 @@ class uARWorld: SKScene {
                 let anchor = ARAnchor(transform: transform)
                 sceneView.session.add(anchor: anchor)
                 items[index].anchorID=anchor.identifier
-            } else if item.positionType == .hitTest {
+            } /* else if item.positionType == .hitTest {
                 isHitActive = true
             } else if item.positionType == .detected_plane {
                 
-            }
+            } */
             
 
         }
         
-        isWorldSetUp = true
+        isTransformSetup = true
     }
     
     
     
     
     override func update(_ currentTime: TimeInterval) {
-        if !isWorldSetUp {
-            setUpWorld()
+        if !isTransformSetup {
+            setUpTransform()
         }
         
         

@@ -16,5 +16,5 @@ That's all.
 
 This project needs you, please contribute!
 ------
-Refer to WiKi page for technical documents
+[Refer to WiKi page for technical documents] (https://github.com/mustafaatalar/uARKit/wiki)
 ---

@@ -16,6 +16,7 @@
 		B427CBD31F9D3E59005FAB0C /* uARView2DController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD11F9D3E59005FAB0C /* uARView2DController.swift */; };
 		B427CBD61F9D3F2C005FAB0C /* uARView2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427CBD51F9D3F2C005FAB0C /* uARView2D.swift */; };
 		B4371D3B1FAF5F7000CBEFB5 /* myvideo2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */; };
+		B4371D3D1FAFA1FE00CBEFB5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B4371D3C1FAFA1FE00CBEFB5 /* README.md */; };
 		B4B546421FA09D3A0077466E /* uARItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B546411FA09D3A0077466E /* uARItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		B427CBD11F9D3E59005FAB0C /* uARView2DController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARView2DController.swift; sourceTree = "<group>"; };
 		B427CBD51F9D3F2C005FAB0C /* uARView2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARView2D.swift; sourceTree = "<group>"; };
 		B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = myvideo2.mp4; sourceTree = "<group>"; };
+		B4371D3C1FAFA1FE00CBEFB5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4B546411FA09D3A0077466E /* uARItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uARItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 		B427CB981F9D289D005FAB0C = {
 			isa = PBXGroup;
 			children = (
+				B4371D3C1FAFA1FE00CBEFB5 /* README.md */,
 				B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */,
 				B427CBD41F9D3E6B005FAB0C /* uARKit */,
 				B427CBA31F9D289D005FAB0C /* uARKit-sample */,
@@ -162,6 +165,7 @@
 			files = (
 				B427CBAF1F9D289D005FAB0C /* LaunchScreen.storyboard in Resources */,
 				B427CBAC1F9D289D005FAB0C /* Assets.xcassets in Resources */,
+				B4371D3D1FAFA1FE00CBEFB5 /* README.md in Resources */,
 				B4371D3B1FAF5F7000CBEFB5 /* myvideo2.mp4 in Resources */,
 				B427CBAA1F9D289D005FAB0C /* Main.storyboard in Resources */,
 			);

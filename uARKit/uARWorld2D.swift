@@ -57,20 +57,6 @@ extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
-    /*
-    func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
-        for anchor in anchors {
-            //pass if the anchor was not added by auto detection or hitTest
-            guard let planeAnchor = anchor as? ARPlaneAnchor else { continue }
-            
-            for (index, anc) in self.detectedAnchors.enumerated() {
-                if anc.identifier == planeAnchor.identifier {
-                    self.detectedAnchors.remove(at: index)
-                }
-            }
-        }
-    }
- */
     
 }
 
@@ -117,15 +103,15 @@ class uARWorld2D: SKScene {
         return itemIdLast-1
     }
     
-    public func addLabelItem(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica") -> Int {
+    public func addLabel(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica") -> Int {
         return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: coordinate(top:0.0, right: 0.0, front: 0.0), positionType: .hitTest)
     }
     
-    public func addLabelItem(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
+    public func addLabel(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
         return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: position, positionType: .coordinate)
     }
     
-    public func addLabelItem(facingMe: Bool, label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
+    public func addLabel(facingMe: Bool, label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
         if facingMe {
             return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: position, positionType: .facing_me)
         } else {
@@ -162,7 +148,7 @@ class uARWorld2D: SKScene {
         return itemIdLast-1
     }
 
-    public func addImageItem(facingMe: Bool, imageName: String, position: coordinate) -> Int {
+    public func addImage(facingMe: Bool, imageName: String, position: coordinate) -> Int {
         if facingMe {
             return addImageItem(imageName: imageName, position: position, positionType: .facing_me)
         } else {
@@ -170,11 +156,11 @@ class uARWorld2D: SKScene {
         }
     }
     
-    public func addImageItem(imageName: String, position: coordinate) -> Int {
+    public func addImage(imageName: String, position: coordinate) -> Int {
         return addImageItem(imageName: imageName, position: position, positionType: .coordinate)
     }
     
-    public func addImageItem(imageName: String) -> Int {
+    public func addImage(imageName: String) -> Int {
         return addImageItem(imageName: imageName, position: coordinate(top: 0.0, right: 0.0, front: 0.0), positionType: .hitTest)
     }
 
@@ -222,15 +208,15 @@ class uARWorld2D: SKScene {
         return itemIdLast-1
     }
     
-    public func addVideoItem(videoName: String) -> Int {
+    public func addVideo(videoName: String) -> Int {
         return addVideoItem(videoName: videoName, position: coordinate(top: 0.0, right: 0.0, front: 0.0), positionType: .hitTest)
     }
     
-    public func addVideoItem(videoName: String, position: coordinate) -> Int {
+    public func addVideo(videoName: String, position: coordinate) -> Int {
         return addVideoItem(videoName: videoName, position: position, positionType: .coordinate)
     }
     
-    public func addVideoItem(facingMe: Bool, videoName: String, position: coordinate) -> Int {
+    public func addVideo(facingMe: Bool, videoName: String, position: coordinate) -> Int {
         if facingMe {
             return addVideoItem(videoName: videoName, position: position, positionType: .facing_me)
         } else {

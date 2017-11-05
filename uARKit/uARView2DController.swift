@@ -7,11 +7,6 @@ var world: uARWorld2D!
 
 class uARView2DController: UIViewController {
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         worldView.session.pause()
@@ -52,12 +47,7 @@ class uARView2DController: UIViewController {
             return .all
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }

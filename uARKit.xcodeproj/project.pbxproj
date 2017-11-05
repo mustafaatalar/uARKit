@@ -33,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B427CBA11F9D289D005FAB0C /* framework-test3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "framework-test3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B427CBA11F9D289D005FAB0C /* uARKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uARKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B427CBA41F9D289D005FAB0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B427CBA61F9D289D005FAB0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B427CBA91F9D289D005FAB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 			children = (
 				B4371D3A1FAF5F7000CBEFB5 /* myvideo2.mp4 */,
 				B427CBD41F9D3E6B005FAB0C /* uARKit */,
-				B427CBA31F9D289D005FAB0C /* framework-test3 */,
+				B427CBA31F9D289D005FAB0C /* uARKit-sample */,
 				B427CBA21F9D289D005FAB0C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,12 +71,12 @@
 		B427CBA21F9D289D005FAB0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B427CBA11F9D289D005FAB0C /* framework-test3.app */,
+				B427CBA11F9D289D005FAB0C /* uARKit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B427CBA31F9D289D005FAB0C /* framework-test3 */ = {
+		B427CBA31F9D289D005FAB0C /* uARKit-sample */ = {
 			isa = PBXGroup;
 			children = (
 				B427CBA41F9D289D005FAB0C /* AppDelegate.swift */,
@@ -86,7 +86,7 @@
 				B427CBAD1F9D289D005FAB0C /* LaunchScreen.storyboard */,
 				B427CBB01F9D289D005FAB0C /* Info.plist */,
 			);
-			path = "framework-test3";
+			path = "uARKit-sample";
 			sourceTree = "<group>";
 		};
 		B427CBD41F9D3E6B005FAB0C /* uARKit */ = {
@@ -103,9 +103,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B427CBA01F9D289D005FAB0C /* framework-test3 */ = {
+		B427CBA01F9D289D005FAB0C /* uARKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "framework-test3" */;
+			buildConfigurationList = B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "uARKit" */;
 			buildPhases = (
 				B427CB9D1F9D289D005FAB0C /* Sources */,
 				B427CB9E1F9D289D005FAB0C /* Frameworks */,
@@ -116,9 +116,9 @@
 			);
 			dependencies = (
 			);
-			name = "framework-test3";
+			name = uARKit;
 			productName = "framework-test3";
-			productReference = B427CBA11F9D289D005FAB0C /* framework-test3.app */;
+			productReference = B427CBA11F9D289D005FAB0C /* uARKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "framework-test3" */;
+			buildConfigurationList = B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "uARKit" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -150,7 +150,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B427CBA01F9D289D005FAB0C /* framework-test3 */,
+				B427CBA01F9D289D005FAB0C /* uARKit */,
 			);
 		};
 /* End PBXProject section */
@@ -353,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "framework-test3" */ = {
+		B427CB9C1F9D289D005FAB0C /* Build configuration list for PBXProject "uARKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B427CBB11F9D289D005FAB0C /* Debug */,
@@ -362,7 +362,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "framework-test3" */ = {
+		B427CBB31F9D289D005FAB0C /* Build configuration list for PBXNativeTarget "uARKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B427CBB41F9D289D005FAB0C /* Debug */,

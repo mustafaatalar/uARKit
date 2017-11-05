@@ -50,48 +50,19 @@ class uARItem {
     var anchorID: UUID
     var isShown: Bool = false
     
-    init(facingMe: Bool, itemId: Int, type: ItemType, position: coordinate, itemObject: SKNode, lightingFactor: Float){
-        self.itemId = itemId
-        self.type = type
-        self.position = position
-        self.itemObject = itemObject
-        self.lightingFactor = lightingFactor
-        self.anchorID = UUID()
-        if facingMe{
-            self.positionType = .facing_me
-        } else {
-            self.positionType = .coordinate
-        }
-    }
-    
     public func setPosition(top: Float, right: Float, front: Float){
         position.front=front
         position.right=right
         position.top=top
     }
     
-
-    
-    init(itemId: Int, type: ItemType, hitPoint: CGPoint, itemObject: SKNode, lightingFactor: Float){
+    init(itemId: Int, type: ItemType, position: coordinate, positionType: PositionType, itemObject: SKNode){
         self.itemId = itemId
         self.type = type
-        self.hitPoint = hitPoint
+        self.position = position
         self.itemObject = itemObject
-        self.lightingFactor = lightingFactor
         self.anchorID = UUID()
-        self.positionType = .hitTest
+        self.positionType = positionType
     }
-    
-    init(itemId: Int, type: ItemType, planeNumber: Int, itemObject: SKNode, lightingFactor: Float){
-        self.itemId = itemId
-        self.type = type
-        self.planeNumber = planeNumber
-        self.itemObject = itemObject
-        self.lightingFactor = lightingFactor
-        self.anchorID = UUID()
-        self.positionType = .detected_plane
-    }
-    
-    
 }
 

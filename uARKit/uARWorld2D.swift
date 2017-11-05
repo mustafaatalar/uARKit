@@ -12,7 +12,7 @@ extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
     
     func sessionInterruptionEnded(_ session: ARSession) {
         print("AR Session resumed")
-        sceneView.session.run(session.configuration!,
+        worldView.session.run(session.configuration!,
                               options: [.resetTracking,
                                         .removeExistingAnchors])
     }
@@ -55,6 +55,7 @@ extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
         }
     }
     
+    /*
     func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
         for anchor in anchors {
             //pass if the anchor was not added by auto detection or hitTest
@@ -67,15 +68,16 @@ extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
             }
         }
     }
+ */
     
 }
 
 class uARWorld2D: SKScene {
-    
-    private var sceneView: ARSKView {
+
+    private var worldView: ARSKView {
         return view as! ARSKView
     }
-    
+
     private var isTransformSetup = false
     
     public enum CoordinateMode {
@@ -83,35 +85,53 @@ class uARWorld2D: SKScene {
         case compass //sets the coordinate system of augmented objects according to real compass, front means X meter on north, right means X meter at east
     }
     
-    public var lightingFactor :CGFloat=0.0
+    private var lightingFactor :CGFloat = 0.0
     
     private var coordinateMode = CoordinateMode.relative
     
-    var items = [uARItem]()
+    private var items = [uARItem]()
     
-    var itemIdLast = 1
+    private var itemIdLast = 1
     
-    var isHitActive: Bool = false;
+    //private var isHitActive: Bool = false;
     
-    var detectedAnchors = [ARAnchor]()
+    //private var detectedAnchors = [ARAnchor]()
     
-    private func addLabelItem(facingMe: Bool, label: String, position: coordinate, lightingFactor: Float) -> Int {
-        let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.label, position: position, itemObject: SKLabelNode(text: label), lightingFactor: lightingFactor)
+    public func setLigtingFactor(factor: CGFloat){
+        self.lightingFactor = factor
+    }
+    
+    private func addLabelItem(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate, positionType: PositionType) -> Int {
+        
+        let labelNode=SKLabelNode(text: label)
+        labelNode.fontSize = fontSize
+        labelNode.fontColor = fontColor
+        labelNode.fontName = fontName
+        
+        let i=uARItem(itemId: itemIdLast, type: ItemType.label, position: position, positionType: positionType, itemObject: labelNode)
         items.append(i)
         self.itemIdLast=self.itemIdLast+1
         isTransformSetup = false
         return itemIdLast-1
     }
     
-    func addLabelItem(label: String, position: coordinate) -> Int {
-        return addLabelItem(facingMe: false, label: label, position: position, lightingFactor: 0.0)
+    public func addLabelItem(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica") -> Int {
+        return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: coordinate(top:0.0, right: 0.0, front: 0.0), positionType: .hitTest)
     }
     
-    func addLabelItem(facingMe: Bool, label: String, position: coordinate) -> Int {
-        return addLabelItem(facingMe: facingMe, label: label, position: position, lightingFactor: 0.0)
+    public func addLabelItem(label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
+        return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: position, positionType: .coordinate)
     }
     
-    private func addImageItem(facingMe: Bool, imageName: String, position: coordinate, lightingFactor: Float) -> Int {
+    public func addLabelItem(facingMe: Bool, label: String, fontSize: CGFloat = 36, fontColor: UIColor = UIColor.white, fontName: String = "Helvetica", position: coordinate) -> Int {
+        if facingMe {
+            return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: position, positionType: .facing_me)
+        } else {
+            return addLabelItem(label: label, fontSize: fontSize, fontColor: fontColor, fontName: fontName, position: position, positionType: .coordinate)
+        }
+    }
+    
+    private func addImageItem(imageName: String, position: coordinate, positionType: PositionType) -> Int {
         
         var s=String(imageName.prefix(7))
         s=s.lowercased()
@@ -122,7 +142,7 @@ class uARWorld2D: SKScene {
                 if let data = NSData(contentsOf: url! as URL) { //make sure your image in this url does exist, otherwise unwrap in a if let check
                     let theImage = UIImage(data: data as Data)
                     let Texture = SKTexture(image: theImage!)
-                    let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast-1, type: ItemType.image, position: position, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
+                    let i=uARItem(itemId: self.itemIdLast-1, type: ItemType.image, position: position, positionType: positionType ,itemObject: SKSpriteNode(texture: Texture))
 
                     self.items.append(i)
                     self.isTransformSetup = false //
@@ -130,93 +150,34 @@ class uARWorld2D: SKScene {
             })
 
         } else {
-            let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.image, position: position, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
-            items.append(i)
             self.itemIdLast=self.itemIdLast+1
-            isTransformSetup = false //
+            if let imageNode: SKSpriteNode = SKSpriteNode(imageNamed: imageName) {
+                let i=uARItem(itemId: itemIdLast, type: ItemType.image, position: position, positionType: positionType ,itemObject: imageNode)
+                items.append(i)
+                isTransformSetup = false
+            }
         }
         return itemIdLast-1
     }
-    
-    func addImageItem(facingMe: Bool, imageName: String, position: coordinate) -> Int {
-        return addImageItem(facingMe: facingMe, imageName: imageName, position: position, lightingFactor: 0.0)
-    }
-    
-    func addImageItem(imageName: String, position: coordinate) -> Int {
-        return addImageItem(facingMe: false, imageName: imageName, position: position, lightingFactor: 0.0)
-    }
-    
-    
-    private func addImageItem(imageName: String, planeNumber: Int, lightingFactor: Float) -> Int {
-        
-        var s=String(imageName.prefix(7))
-        s=s.lowercased()
-        if s == "http://" || s == "https:/" {
-            self.itemIdLast=self.itemIdLast+1
-            DispatchQueue.global().async(execute: {
-                let url = NSURL(string: imageName)
-                let data = NSData(contentsOf: url! as URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let theImage = UIImage(data: data! as Data)
-                let Texture = SKTexture(image: theImage!)
-                let i=uARItem(itemId: self.itemIdLast-1, type: ItemType.image, planeNumber: planeNumber, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
-                
-                self.items.append(i)
-                self.isTransformSetup = false //
-            })
-            
+
+    public func addImageItem(facingMe: Bool, imageName: String, position: coordinate) -> Int {
+        if facingMe {
+            return addImageItem(imageName: imageName, position: position, positionType: .facing_me)
         } else {
-            let i=uARItem(itemId: itemIdLast, type: ItemType.image, planeNumber: planeNumber, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
-            items.append(i)
-            self.itemIdLast=self.itemIdLast+1
-            isTransformSetup = false //
+            return addImageItem(imageName: imageName, position: position, positionType: .coordinate)
         }
-        return itemIdLast-1
     }
     
-    func addImageItem(imageName: String) -> Int {
-        return addImageItem(imageName: imageName, planeNumber: 1, lightingFactor: 0.0)
+    public func addImageItem(imageName: String, position: coordinate) -> Int {
+        return addImageItem(imageName: imageName, position: position, positionType: .coordinate)
     }
     
-    private func addImageItem(imageName: String, hitPoint: CGPoint, lightingFactor: Float) -> Int {
-        
-        var s=String(imageName.prefix(7))
-        s=s.lowercased()
-        if s == "http://" || s == "https:/" {
-            
-            DispatchQueue.global().async(execute: {
-                let url = NSURL(string: imageName)
-                let data = NSData(contentsOf: url! as URL) //make sure your image in this url does exist, otherwise unwrap in a if let check
-                let theImage = UIImage(data: data! as Data)
-                let Texture = SKTexture(image: theImage!)
-                let i=uARItem(itemId: self.itemIdLast, type: ItemType.image, hitPoint: hitPoint, itemObject: SKSpriteNode(texture: Texture), lightingFactor: lightingFactor)
-                
-                self.items.append(i)
-                self.itemIdLast=self.itemIdLast+1
-                self.isTransformSetup = false //
-            })
-            
-        } else {
-            let i=uARItem(itemId: itemIdLast, type: ItemType.image, hitPoint: hitPoint, itemObject: SKSpriteNode(imageNamed: imageName), lightingFactor: lightingFactor)
-            items.append(i)
-            self.itemIdLast=self.itemIdLast+1
-            isTransformSetup = false //
-        }
-        return itemIdLast-1
+    public func addImageItem(imageName: String) -> Int {
+        return addImageItem(imageName: imageName, position: coordinate(top: 0.0, right: 0.0, front: 0.0), positionType: .hitTest)
     }
+
     
-    func addImageItem(imageName: String, hitPoint: CGPoint) -> Int {
-        return addImageItem(imageName: imageName, hitPoint: hitPoint, lightingFactor: 0.0)
-    }
-    
-    func addVideoItem(videoName: String, position: coordinate) -> Int {
-        return addVideoItem(facingMe: false, videoName: videoName, position: position, lightingFactor: 0.0)
-    }
-    
-    func addVideoItem(facingMe: Bool, videoName: String, position: coordinate) -> Int {
-        return addVideoItem(facingMe: facingMe, videoName: videoName, position: position, lightingFactor: 0.0)
-    }
-    
-    private func addVideoItem(facingMe: Bool, videoName: String, position: coordinate, lightingFactor: Float) -> Int {
+    private func addVideoItem(videoName: String, position: coordinate, positionType: PositionType) -> Int {
         
         var s=String(videoName.prefix(7))
         s=s.lowercased()
@@ -225,8 +186,7 @@ class uARWorld2D: SKScene {
             DispatchQueue.global().async(execute: {
                
                 if let videoNode:SKVideoNode = SKVideoNode(url: URL(string: videoName)!) {
-                    let i=uARItem(facingMe: facingMe, itemId: self.itemIdLast, type: ItemType.video, position: position, itemObject: videoNode, lightingFactor: lightingFactor)
-                    //let vn:SKVideoNode=i.itemObject as! SKVideoNode
+                    let i=uARItem(itemId: self.itemIdLast, type: ItemType.video, position: position, positionType: positionType,  itemObject: videoNode)
                     videoNode.play()
                     
                     self.items.append(i)
@@ -235,8 +195,6 @@ class uARWorld2D: SKScene {
             })
             
         } else {
-            //print("video")
-            
             let vn: SKVideoNode? = {
                 guard let urlString = Bundle.main.path(forAuxiliaryExecutable: videoName) else {
                     return nil
@@ -249,26 +207,40 @@ class uARWorld2D: SKScene {
                 return SKVideoNode(avPlayer: player)
             }()
             
+            self.itemIdLast=self.itemIdLast+1
             if vn != nil {
-                let i=uARItem(facingMe: facingMe, itemId: itemIdLast, type: ItemType.video, position: position, itemObject: vn!, lightingFactor: lightingFactor)
-                //let vn:SKVideoNode=i.itemObject as! SKVideoNode
+                let i=uARItem(itemId: itemIdLast, type: ItemType.video, position: position, positionType: positionType, itemObject: vn!)
                 vn?.play()
-
                 items.append(i)
-                self.itemIdLast=self.itemIdLast+1
                 isTransformSetup = false
             } else {
-                //print("no video node")
+                
             }
         }
         return itemIdLast-1
+    }
+    
+    public func addVideoItem(videoName: String) -> Int {
+        return addVideoItem(videoName: videoName, position: coordinate(top: 0.0, right: 0.0, front: 0.0), positionType: .hitTest)
+    }
+    
+    public func addVideoItem(videoName: String, position: coordinate) -> Int {
+        return addVideoItem(videoName: videoName, position: position, positionType: .coordinate)
+    }
+    
+    public func addVideoItem(facingMe: Bool, videoName: String, position: coordinate) -> Int {
+        if facingMe {
+            return addVideoItem(videoName: videoName, position: position, positionType: .facing_me)
+        } else {
+            return addVideoItem(videoName: videoName, position: position, positionType: .coordinate)
+        }
     }
     
 
 
     
     
-    func setCoordinateMode(mode: CoordinateMode){
+    public func setCoordinateMode(mode: CoordinateMode){
         self.coordinateMode = mode
         //let configuration=worldView.session.configuration;
         let configuration = ARWorldTrackingConfiguration()
@@ -285,7 +257,7 @@ class uARWorld2D: SKScene {
     }
     
     
-    func resetRelativeCoordinate(){
+    public func resetRelativeCoordinate(){
         worldView.session.run(worldView.session.configuration!, options: .resetTracking)
     }
     
@@ -295,7 +267,7 @@ class uARWorld2D: SKScene {
     
     
     private func setUpTransform() {
-        guard let currentFrame = sceneView.session.currentFrame
+        guard let currentFrame = worldView.session.currentFrame
             else { return }
         
         for (index, item) in items.enumerated() {
@@ -323,7 +295,7 @@ class uARWorld2D: SKScene {
                 }
                 
                 let anchor = ARAnchor(transform: transform)
-                sceneView.session.add(anchor: anchor)
+                worldView.session.add(anchor: anchor)
                 items[index].anchorID=anchor.identifier
             }
         }
@@ -339,9 +311,9 @@ class uARWorld2D: SKScene {
         }
         
         
-        //needed for light estimation
+        //light estimation
         //1
-        guard let currentFrame = sceneView.session.currentFrame,
+        guard let currentFrame = worldView.session.currentFrame,
             let lightEstimate = currentFrame.lightEstimate else {
                 return
         }
@@ -352,9 +324,12 @@ class uARWorld2D: SKScene {
                                    neutralIntensity)
         let blendFactor = 1 - ambientIntensity / neutralIntensity
         
-        // 3
+        // 3 set lighting for SKSpriteNode(image) and label items, no ligting effect for videos
         for node in children {
             if let itemObject = node as? SKSpriteNode {
+                itemObject.color = .black
+                itemObject.colorBlendFactor = blendFactor * self.lightingFactor
+            } else if let itemObject = node as? SKLabelNode {
                 itemObject.color = .black
                 itemObject.colorBlendFactor = blendFactor * self.lightingFactor
             }

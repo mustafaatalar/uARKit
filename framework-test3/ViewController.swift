@@ -30,7 +30,7 @@ class ViewController: uARView2DController {
     }
     
     @IBAction func button3Clicked(){
-        _=world.addLabelItem(label: "label3", position: coordinate(top: 0,  right: 0, front: 1))
+        _=world.addLabelItem(label: "label3", fontSize:8, position: coordinate(top: 0,  right: 0, front: 1))
     }
     
     @IBAction func button4Clicked(){
@@ -45,6 +45,7 @@ class ViewController: uARView2DController {
         // Do any additional setup after loading the view, typically from a nib.
         
         world.setCoordinateMode(mode: .relative)
+        world.setLigtingFactor(factor: 0.1)
     }
 
     override func didReceiveMemoryWarning() {

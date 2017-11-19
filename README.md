@@ -18,3 +18,4 @@ This project needs you, please contribute!
 ------
 [Refer to WiKi page for technical documents] (https://github.com/mustafaatalar/uARKit/wiki)
 ---
+v.1.1

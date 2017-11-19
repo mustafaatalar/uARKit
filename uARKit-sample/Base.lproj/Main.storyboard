@@ -17,36 +17,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nv-rP-K1S">
-                                <rect key="frame" x="16" y="65" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button-1"/>
-                                <connections>
-                                    <action selector="button1Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="anQ-iQ-tJn"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS5-LU-yLC">
-                                <rect key="frame" x="16" y="103" width="76" height="30"/>
+                                <rect key="frame" x="24" y="579" width="141" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button-2"/>
+                                <state key="normal" title="Label 2 meters away"/>
                                 <connections>
                                     <action selector="button2Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="0Q6-iK-EZN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UT9-id-w1O">
-                                <rect key="frame" x="22" y="141" width="62" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nv-rP-K1S">
+                                <rect key="frame" x="24" y="541" width="131" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button-3"/>
+                                <state key="normal" title="Image on the plane"/>
                                 <connections>
-                                    <action selector="button3Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="udo-eB-ESx"/>
+                                    <action selector="button1Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="anQ-iQ-tJn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDm-nK-1UY">
-                                <rect key="frame" x="22" y="179" width="62" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UT9-id-w1O">
+                                <rect key="frame" x="24" y="617" width="115" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button-4"/>
+                                <state key="normal" title="Video on the sky"/>
                                 <connections>
-                                    <action selector="button4Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="HkM-fP-ObN"/>
+                                    <action selector="button3Clicked" destination="BYZ-38-t0r" eventType="touchDown" id="udo-eB-ESx"/>
                                 </connections>
                             </button>
                         </subviews>

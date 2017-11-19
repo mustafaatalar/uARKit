@@ -1,5 +1,3 @@
-// Version 1.0
-
 import ARKit
 
 extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
@@ -25,6 +23,9 @@ extension uARWorld2D: ARSKViewDelegate, ARSCNViewDelegate, ARSessionDelegate {
         for item in items {
             if item.anchorID == anchor.identifier {
                 item.isShown = true
+                if item.type == ItemType.video{
+                    (item.itemObject as! SKVideoNode).play()
+                }
                 return item.itemObject
             }
         }
@@ -175,7 +176,7 @@ class uARWorld2D: SKScene {
                
                 if let videoNode:SKVideoNode = SKVideoNode(url: URL(string: videoName)!) {
                     let i=uARItem(itemId: self.itemIdLast, type: ItemType.video, position: position, positionType: positionType,  itemObject: videoNode)
-                    videoNode.play()
+                    //videoNode.play()
                     
                     self.items.append(i)
                     self.isTransformSetup = false
@@ -198,7 +199,7 @@ class uARWorld2D: SKScene {
             self.itemIdLast=self.itemIdLast+1
             if vn != nil {
                 let i=uARItem(itemId: itemIdLast, type: ItemType.video, position: position, positionType: positionType, itemObject: vn!)
-                vn?.play()
+                //vn?.play()
                 items.append(i)
                 isTransformSetup = false
             } else {

@@ -1,5 +1,3 @@
-// Version 1.0
-
 import ARKit
 
 var world2DView: ARSKView!

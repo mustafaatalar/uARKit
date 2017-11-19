@@ -13,7 +13,7 @@ class ViewController: uARView2DController {
     
     @IBAction func button1Clicked(){
         //_=world.addImage(imageName: "penguen")
-        _=world.addImage(imageName: "http://lify.me/wk/emocan/assets/fikriye-emocan.png", position: coordinate(top: 0, right: 0, front: 3))
+        _=world2D.addImage(imageName: "http://lify.me/wk/emocan/assets/fikriye-emocan.png", position: coordinate(top: 0, right: 0, front: 3))
         //_=world.addImage(facingMe: true, imageName: "penguen", position: coordinate(top: 0, right: 0, front: 10))
         
         //_=world.addLabel(label: "merhaba")
@@ -26,15 +26,15 @@ class ViewController: uARView2DController {
     }
     
     @IBAction func button2Clicked(){
-        _=world.addLabel(label: "label2", position: coordinate(top: 1,  right: 0, front: 1))
+        _=world2D.addLabel(label: "label2", position: coordinate(top: 1,  right: 0, front: 1))
     }
     
     @IBAction func button3Clicked(){
-        _=world.addLabel(label: "label3", fontSize:8, position: coordinate(top: 0,  right: 0, front: 1))
+        _=world2D.addLabel(label: "label3", fontSize:8, position: coordinate(top: 0,  right: 0, front: 1))
     }
     
     @IBAction func button4Clicked(){
-        world.resetRelativeCoordinate()
+        world2D.resetRelativeCoordinate()
     }
     
     
@@ -44,8 +44,8 @@ class ViewController: uARView2DController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        world.setCoordinateMode(mode: .compass)
-        world.setLigtingFactor(factor: 1)
+        world2D.setCoordinateMode(mode: .compass)
+        world2D.setLigtingFactor(factor: 1)
     }
 
     override func didReceiveMemoryWarning() {

@@ -2,14 +2,14 @@
 
 import ARKit
 
-var worldView: ARSKView!
-var world: uARWorld2D!
+var world2DView: ARSKView!
+var world2D: uARWorld2D!
 
 class uARView2DController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        worldView.session.pause()
+        world2DView.session.pause()
     }
     
     override func viewDidLoad() {
@@ -17,21 +17,21 @@ class uARView2DController: UIViewController {
         
         
         if let view = self.view as? ARSKView {
-            world = uARWorld2D(size: view.bounds.size)
-            worldView = view
-            worldView!.delegate = world
-            worldView.session.delegate = world
-            world.scaleMode = .resizeFill
-            world.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            world2D = uARWorld2D(size: view.bounds.size)
+            world2DView = view
+            world2DView!.delegate = world2D
+            world2DView.session.delegate = world2D
+            world2D.scaleMode = .resizeFill
+            world2D.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             
             //view.showsFPS = true
             //view.showsNodeCount = true
-            view.presentScene(world)
+            view.presentScene(world2D)
             
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
-            worldView.session.run(configuration)
-            world.setCoordinateMode(mode: .relative)
+            world2DView.session.run(configuration)
+            world2D.setCoordinateMode(mode: .relative)
         }
         
     }

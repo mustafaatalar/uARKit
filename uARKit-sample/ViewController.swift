@@ -12,17 +12,17 @@ import UIKit
 class ViewController: uARView2DController {
     
     @IBAction func button1Clicked(){
-        //scene.setCoordinateMode(mode: uARScene.CoordinateMode.accordingToCompass)
-        //scene.addLabelItem(label: "hello", position: coordinate(top: 0,  right: 0, front: 1))
-        //world.addImageItem(imageName: "http://lify.me/wk/emocan/assets/fikriye-emocan.png", position: coordinate(top:0, right:0, front:1))
-        //scene.addImageItem(facingMe: false, imageName: "fikriye", position: coordinate(top:0, right:0, front:5))
-        //scene.addImageItem(imageName: "fikriye")
-        //world.addImageItem(imageName: "fikriye", hitPoint: CGPoint(x:0.5, y:0.5))
-        //scene.addLabelItem(label: "merhaba", position: coordinate(top: 0,  right: 0, front: 1))
-        //scene.addLabelItem(label: "yuppi", position: coordinate(top: 1,  right: -1, front: 1))
+        //_=world.addImage(imageName: "penguen")
+        _=world.addImage(imageName: "http://lify.me/wk/emocan/assets/fikriye-emocan.png", position: coordinate(top: 0, right: 0, front: 3))
+        //_=world.addImage(facingMe: true, imageName: "penguen", position: coordinate(top: 0, right: 0, front: 10))
         
-        _=world.addVideo(videoName: "myvideo2.mp4", position: coordinate(top:0, right:0, front:5))
-        //_=world.addVideoItem(videoName: "http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4", position: coordinate(top:0, right:0, front:5))
+        //_=world.addLabel(label: "merhaba")
+        //_=world.addLabel(label: "merhaba", position: coordinate(top: 0, right: 0, front: 5))
+        //_=world.addLabel(facingMe: true, label: "merhaba", position: coordinate(top: 0, right: 0, front: 3))
+        
+        //_=world.addVideo(videoName: "myvideo2.mp4")
+        //_=world.addVideo(videoName: "http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4", position: coordinate(top: 0, right: 0, front: 5))
+        //_=world.addVideo(facingMe: true, videoName: "myvideo2.mp4", position: coordinate(top: 0, right: 0, front: 7))
     }
     
     @IBAction func button2Clicked(){
@@ -44,8 +44,8 @@ class ViewController: uARView2DController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        world.setCoordinateMode(mode: .relative)
-        world.setLigtingFactor(factor: 0.1)
+        world.setCoordinateMode(mode: .compass)
+        world.setLigtingFactor(factor: 1)
     }
 
     override func didReceiveMemoryWarning() {
